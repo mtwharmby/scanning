@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Queue bean builder
+Bundle-SymbolicName: org.eclipse.scanning.event.queues.builder
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.eclipse.scanning.api;bundle-version="1.0.0",
+ org.eclipse.scanning.event.queues;bundle-version="1.0.0"
+Export-Package: org.eclipse.scanning.event.queues.builder,
+ org.eclipse.scanning.event.queues.builder.models
