@@ -18,7 +18,7 @@ import org.eclipse.scanning.api.event.EventException;
 import org.eclipse.scanning.api.event.core.IPublisher;
 import org.eclipse.scanning.api.event.queues.IQueueProcess;
 import org.eclipse.scanning.api.event.queues.beans.Queueable;
-import org.eclipse.scanning.event.queues.processes.MoveAtomProcess;
+import org.eclipse.scanning.event.queues.processes.PositionerAtomProcess;
 import org.eclipse.scanning.event.queues.processes.ScanAtomProcess;
 import org.eclipse.scanning.event.queues.processes.SubTaskAtomProcess;
 import org.eclipse.scanning.event.queues.processes.TaskBeanProcess;
@@ -72,7 +72,7 @@ public class QueueProcessFactory {
 		
 		//Register default processors
 		try {
-			QueueProcessFactory.registerProcesses(MoveAtomProcess.class,
+			QueueProcessFactory.registerProcesses(PositionerAtomProcess.class,
 					ScanAtomProcess.class, SubTaskAtomProcess.class, 
 					TaskBeanProcess.class);// MonitorAtomProcessor.class,
 		} catch (EventException evEx) {

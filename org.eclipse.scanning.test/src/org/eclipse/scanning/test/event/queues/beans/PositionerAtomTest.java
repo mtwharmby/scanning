@@ -18,19 +18,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.scanning.api.event.queues.beans.MoveAtom;
+import org.eclipse.scanning.api.event.queues.beans.PositionerAtom;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test for the {@link MoveAtom} class. This class only create the POJO.
+ * Test for the {@link PositionerAtom} class. This class only create the POJO.
  * Actual tests in {@link AbstractBeanTest}. Additional test to determine atom
  * configuration.
  * 
  * @author Michael Wharmby
  *
  */
-public class MoveAtomTest extends AbstractBeanTest<MoveAtom> {
+public class PositionerAtomTest extends AbstractBeanTest<PositionerAtom> {
 	
 	private String nameA = "testMoveA", nameB = "testMoveB";
 	private String deviceA = "testDeviceA", deviceB = "testDeviceB"
@@ -47,8 +47,8 @@ public class MoveAtomTest extends AbstractBeanTest<MoveAtom> {
 		beanBConf.put(deviceD, targetD);
 				
 		
-		beanA = new MoveAtom(nameA, deviceA, targetA);
-		beanB = new MoveAtom(nameB, beanBConf);
+		beanA = new PositionerAtom(nameA, deviceA, targetA);
+		beanB = new PositionerAtom(nameB, beanBConf);
 		
 	}
 	

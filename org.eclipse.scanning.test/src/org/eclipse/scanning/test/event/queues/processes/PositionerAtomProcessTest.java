@@ -17,12 +17,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.eclipse.scanning.api.device.IRunnableDeviceService;
 import org.eclipse.scanning.api.event.EventException;
-import org.eclipse.scanning.api.event.queues.beans.MoveAtom;
+import org.eclipse.scanning.api.event.queues.beans.PositionerAtom;
 import org.eclipse.scanning.api.event.queues.beans.Queueable;
 import org.eclipse.scanning.api.event.status.Status;
 import org.eclipse.scanning.api.event.status.StatusBean;
 import org.eclipse.scanning.event.queues.ServicesHolder;
-import org.eclipse.scanning.event.queues.processes.MoveAtomProcess;
+import org.eclipse.scanning.event.queues.processes.PositionerAtomProcess;
 import org.eclipse.scanning.event.queues.processes.QueueProcess;
 import org.eclipse.scanning.test.event.queues.mocks.MockPositioner;
 import org.eclipse.scanning.test.event.queues.mocks.MockScanService;
@@ -30,10 +30,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class MoveAtomProcessTest {
+public class PositionerAtomProcessTest {
 	
-	private MoveAtom mvAt;
-	private QueueProcess<MoveAtom, Queueable> mvAtProc;
+	private PositionerAtom mvAt;
+	private QueueProcess<PositionerAtom, Queueable> mvAtProc;
 	
 	//Infrastructure
 	private ProcessTestInfrastructure pti;
@@ -46,8 +46,8 @@ public class MoveAtomProcessTest {
 		mss = new MockScanService();
 		ServicesHolder.setDeviceService(mss);
 		
-		mvAt = new MoveAtom("Move robot arm", "robot_arm", "1250");
-		mvAtProc = new MoveAtomProcess<>(mvAt, pti.getPublisher(), false);
+		mvAt = new PositionerAtom("Move robot arm", "robot_arm", "1250");
+		mvAtProc = new PositionerAtomProcess<>(mvAt, pti.getPublisher(), false);
 	}
 	
 	@After
@@ -111,8 +111,8 @@ public class MoveAtomProcessTest {
 	 */
 	@Test
 	public void testFailure() throws Exception {
-		MoveAtom failAtom = new MoveAtom("Error Causer", "BadgerApocalypseButton", "pushed");
-		mvAtProc = new MoveAtomProcess<>(failAtom, pti.getPublisher(), false);
+		PositionerAtom failAtom = new PositionerAtom("Error Causer", "BadgerApocalypseButton", "pushed");
+		mvAtProc = new PositionerAtomProcess<>(failAtom, pti.getPublisher(), false);
 		
 		pti.executeProcess(mvAtProc, failAtom);
 		//Fail happens automatically since using MockDev.Serv.
