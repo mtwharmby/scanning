@@ -167,4 +167,18 @@ public class PositionerAtom extends QueueAtom {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		String positConf = "{";
+		for (Map.Entry<String, Object> poserCfg : positionerConfig.entrySet()) {
+			positConf = positConf+poserCfg.getKey()+" : "+poserCfg.getValue();
+		}
+		positConf = positConf+"}";
+		
+		return "PositionerAtom [name=" + name + "positionerConfig=" + positConf +", status=" + status +
+				", message=" + message + ", percentComplete=" + percentComplete + ", previousStatus=" +
+				previousStatus + ", runTime=" + runTime + ", userName=" + userName+ ", hostName=" + 
+				hostName + ", beamline="+ beamline + ", submissionTime=" + submissionTime + "]";
+	}
+
 }
