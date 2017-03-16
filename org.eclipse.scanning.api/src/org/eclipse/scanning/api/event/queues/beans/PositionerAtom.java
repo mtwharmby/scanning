@@ -17,16 +17,16 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * MoveAtom is a type of {@link QueueAtom} which may be processed within an 
- * active-queue of an {@link IQueueService}. It contains all the configuration 
- * necessary to create an {@link IPositioner} which is used to set the 
- * positions of one or more motors. Motor moves may occur simultaneously, 
- * depending on the configured level of the motor.
+ * PositionerAtom is a type of {@link QueueAtom} which may be processed within 
+ * an active-queue of an {@link IQueueService}. It contains all the 
+ * configuration necessary to create an {@link IPositioner} which is used to 
+ * set the positions of one or more motors. Motor moves may occur 
+ * simultaneously, depending on the configured level of the motor.
  * 
  * @author Michael Wharmby
  *
  */
-public class MoveAtom extends QueueAtom {
+public class PositionerAtom extends QueueAtom {
 	
 	/**
 	 * Version ID for serialization. Should be updated when class changed. 
@@ -38,20 +38,20 @@ public class MoveAtom extends QueueAtom {
 	/**
 	 * No arg constructor for JSON
 	 */
-	public MoveAtom() {
+	public PositionerAtom() {
 		super();
 	}
 	
 	/**
 	 * Constructor with required arguments to configure one positioner.
 	 * 
-	 * @param mvName String automatically/user supplied name for this move. 
+	 * @param posName String automatically/user supplied name for this move. 
 	 * @param positionDev String name of positioner to move.
 	 * @param target Object target to move positioner to.
 	 */
-	public MoveAtom(String mvName, String positionDev, Object target) {
+	public PositionerAtom(String posName, String positionDev, Object target) {
 		super();
-		setName(mvName);
+		setName(posName);
 		
 		positionerConfig = new LinkedHashMap<String, Object>();
 		positionerConfig.put(positionDev, target);
@@ -60,13 +60,13 @@ public class MoveAtom extends QueueAtom {
 	/**
 	 * Constructor with required arguments for multiple positioners.
 	 * 
-	 * @param mvName String automatically/user supplied name for this move.
+	 * @param posName String automatically/user supplied name for this move.
 	 * @param positionerConfig Map of form: String positionerDev name 
 	 *                                      Object target position.
 	 */
-	public MoveAtom(String mvName, Map<String, Object> positionerConfig) {
+	public PositionerAtom(String posName, Map<String, Object> positionerConfig) {
 		super();
-		setName(mvName);
+		setName(posName);
 		this.positionerConfig = positionerConfig;
 	}
 	
@@ -95,7 +95,7 @@ public class MoveAtom extends QueueAtom {
 	 * @param positionDev String name of motor to move.
 	 * @param target Object target to move motor to.
 	 */
-	public void putPositioner(String positionDev, Object target) {
+	public void addPositioner(String positionDev, Object target) {
 		positionerConfig.put(positionDev, target);
 	}
 	
@@ -124,18 +124,18 @@ public class MoveAtom extends QueueAtom {
 	 * @return Map<String, Object> String key name of positionDev and Object 
 	 *         target.
 	 */
-	public Map<String, Object> getPositionConfig() {
+	public Map<String, Object> getPositionerConfig() {
 		return positionerConfig;
 	}
 
 	/**
 	 * Change the complete set of positioner names and target positions.
 	 * 
-	 * @param positionConfig Map<String, Object> String key name of 
+	 * @param positionerConfig Map<String, Object> String key name of 
 	 *                       positionDev and Object target.
 	 */
-	public void setPositionConfig(Map<String, Object> positionConfig) {
-		this.positionerConfig = positionConfig;
+	public void setPositionerConfig(Map<String, Object> positionerConfig) {
+		this.positionerConfig = positionerConfig;
 	}
 
 	@Override
@@ -156,7 +156,7 @@ public class MoveAtom extends QueueAtom {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MoveAtom other = (MoveAtom) obj;
+		PositionerAtom other = (PositionerAtom) obj;
 		if (positionerConfig == null) {
 			if (other.positionerConfig != null)
 				return false;
@@ -165,6 +165,20 @@ public class MoveAtom extends QueueAtom {
 		if (runTime != other.runTime)
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		String positConf = "{";
+		for (Map.Entry<String, Object> poserCfg : positionerConfig.entrySet()) {
+			positConf = positConf+poserCfg.getKey()+" : "+poserCfg.getValue();
+		}
+		positConf = positConf+"}";
+		
+		return "PositionerAtom [name=" + name + "positionerConfig=" + positConf +", status=" + status +
+				", message=" + message + ", percentComplete=" + percentComplete + ", previousStatus=" +
+				previousStatus + ", runTime=" + runTime + ", userName=" + userName+ ", hostName=" + 
+				hostName + ", beamline="+ beamline + ", submissionTime=" + submissionTime + "]";
 	}
 
 }
