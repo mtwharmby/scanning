@@ -252,6 +252,9 @@ public class QueueServiceScanServletIntegrationTest extends BrokerTest {
 		assertTrue(RealQueueTestUtils.getEndEvents().size() > 0);
 		
 		RealQueueTestUtils.waitForEvent(queueLatch);
+
+//		FIXME I'll have to fish the TaskBean out of the StatusTopic
+//		assertEquals("TaskBean final status not COMPLETE", tBean.getStatus(), Status.COMPLETE);
 	}
 	
 }
